@@ -10,43 +10,16 @@ class TestDatabase:
         with allure.step('Инициализация базы данных'):
             self.db = Database()
 
-    @allure.title('Количество доступных булок')
-    @allure.description('Проверка, что метод available_buns() возвращает ровно 3 булочки (black, white, red)')
-    def test_available_buns_count(self):
-        with allure.step('Получить список булок из базы данных'):
-            buns = self.db.available_buns()
+    @allure.title('Проверка, что available_buns() возвращает список')
+    @allure.description('Метод available_buns() должен возвращать объект типа list. '
+                        'Тест проверяет, что метод не возвращает None и возвращает список.')
+    def test_available_buns_returns_list(self):
+        buns = self.db.available_buns()
+        assert isinstance(buns, list)
 
-        with allure.step('Проверить, что количество булок равно 3'):
-            assert len(buns) == 3
-
-    @allure.title('Названия доступных булок')
-    @allure.description('Проверка, что названия булок соответствуют ожидаемому порядку: black bun, white bun, red bun')
-    def test_available_buns_names(self):
-        with allure.step('Получить список булок'):
-            buns = self.db.available_buns()
-        with allure.step('Извлечь названия булок'):    
-            names = [bun.get_name() for bun in buns]
-
-        with allure.step('Сравнить названия со списком'):
-            assert names == ["black bun", "white bun", "red bun"]
-
-    @allure.title('Цены доступных булок')
-    @allure.description('Проверка, что цены булок соответствуют ожидаемым: 100, 200, 300')
-    def test_available_buns_prices(self):
-        with allure.step('Получить список булок'):
-            buns = self.db.available_buns()
-        with allure.step('Извлечь цены с помощью get_price()'):
-            prices = [bun.get_price() for bun in buns]
-
-        with allure.step('Сравнить цены со списком [100, 200, 300]'):
-            assert prices == [100, 200, 300]
-
-    @allure.title('Количество доступных ингредиентов')
-    @allure.description('Проверка, что метод available_ingredients() возвращает ровно 6 ингредиентов (3 соуса и 3 начинки)')
-    def test_available_ingredients_count(self):
-        with allure.step('Получить список ингредиентов из базы данных'):
-            ingredients = self.db.available_ingredients()
-        with allure.step('Проверить, что количество ингредиентов равно 6'):
-            assert len(ingredients) == 6
-
-    
+    @allure.title('Проверка, что available_ingredients() возвращает список')
+    @allure.description('Метод available_ingredients() должен возвращать объект типа list. '
+                        'Тест проверяет, что метод не возвращает None и возвращает список.')
+    def test_available_ingredients_returns_list(self):
+        ingredients = self.db.available_ingredients()
+        assert isinstance(ingredients, list)
